@@ -1,0 +1,10 @@
+GET http://localhost:9200
+
+###英文分词功能测试
+POST http://localhost:9200/_analyze
+Content-Type: application/json
+
+{
+  "text": "北京冬季奥林匹克运动会即将在春节举行",
+  "analyzer": "ik_max_word"
+}

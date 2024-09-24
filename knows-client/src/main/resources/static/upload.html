@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文件上载演示</title>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+<form id="demoForm" method="post"
+      enctype="multipart/form-data"
+      action="/upload/file" >
+    <div>
+        <label>上传文件
+            <input id="imageFile" type="file" name="imageFile">
+        </label>
+    </div>
+    <button type="submit">上传文件</button>
+</form>
+<img id="image" src=""  alt="">
+</body>
+<script>
+    // 在id为demoForm的表单提交时运行的方法
+    $("#demoForm").submit(function(){
+        // 获得用户选中的所有文件对象
+        let files=document.getElementById("imageFile").files;
+        // 判断是否选中了文件
+        if(files.length>0){
+            // 执行上传操作
+            uploadFile(files[0]);
+        }else{
+            alert("请选择要上传的文件");
+        }
+        // 阻止表单原有的提交效果,实现异步提交
+        return false;
+    })
+
+    function uploadFile(file){
+        // 上传图片(文件)需要表单,先创建表单对象
+        let form=new FormData();
+        // 向表单对象中保存名称和它对应的数据
+        form.append("imageFile",file);
+        axios({
+            url:"/upload/file",
+            method:"post",
+            data:form
+        }).then(function(response){
+            console.log(response.data);
+            // 现在response.data是能够显示图片的路径了
+            // 将image标签的src属性替换即可
+            $("#image").attr("src",response.data);
+
+        })
+    }
+</script>
+</html>

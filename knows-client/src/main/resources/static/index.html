@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="bower_components/jquery/dist/jquery.js" ></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js" ></script>
+    <!--  vue和axios的引用  -->
+    <script src="bower_components/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+首页加载中......请稍候
+</body>
+<script>
+    $(function(){
+        let token = window.localStorage.getItem("accessToken");
+        console.log("token:"+token);
+        axios({
+            url:"http://localhost:9000/v1/home",
+            method:"get",
+            params:{
+                accessToken:token
+            }
+        }).then(function (response) {
+            location.href = response.data;
+
+        })
+    })
+</script>
+</html>

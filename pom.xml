@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.12.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>tq.tyd</groupId>
+    <artifactId>knows</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>knows</name>
+    <description>Demo project for Spring Boot</description>
+    <packaging>pom</packaging>
+    <properties>
+        <java.version>1.8</java.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <spring-cloud-alibaba.version>2.2.2.RELEASE</spring-cloud-alibaba.version>
+
+        <mybatis.plus.version>3.3.1</mybatis.plus.version>
+        <pagehelper.starter.version>1.3.0</pagehelper.starter.version>
+<!--这个配置项指定了项目中自定义组件 knows-commons 的版本号-->
+        <knows.commons.version>0.0.1-SNAPSHOT</knows.commons.version>
+<!--        这个配置项指定了 Spring Cloud 的版本号。-->
+        <spring-cloud.version>Hoxton.SR3</spring-cloud.version>
+<!--        这个配置项指定了 Spring Security JWT 的版本号-->
+        <spring-security-jwt.version>1.0.10.RELEASE</spring-security-jwt.version>
+    </properties>
+    <modules>
+        <module>knows-portal</module>
+        <module>knows-generator</module>
+        <module>knows-resource</module>
+        <module>gateway</module>
+        <module>knows-client</module>
+        <module>knows-sys</module>
+        <module>knows-commons</module>
+        <module>knows-faq</module>
+        <module>knows-auth</module>
+        <module>knows-search</module>
+        <module>knows-kafka</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+
+        <dependencies>
+            <dependency>
+                <groupId>tq.tyd</groupId>
+                <artifactId>knows-commons</artifactId>
+                <version>${knows.commons.version}</version>
+            </dependency>
+<!--            Spring Cloud：用于开发和管理微服务架构，提供服务发现、配置管理、负载均衡、断路器、API 网关和分布式追踪等功能。-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+<!--            Spring Cloud Alibaba：扩展了 Spring Cloud，提供对阿里巴巴中间件和云服务的支持，包括 Nacos、Sentinel、RocketMQ、Dubbo 和 Seata。-->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+<!--                scope=import：告诉 Maven 这是一个 BOM 文件，用于导入依赖版本信息，而不是直接作为项目依赖。
+type=pom：指定这是一个 POM 类型的依赖项，用于版本管理，而不是包含代码或资源的常规 JAR 文件。-->
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+<!--            Spring Security：用于保护应用程序的安全，提供认证、授权和多种防护措施，确保应用程序的安全性。-->
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-jwt</artifactId>
+                <version>${spring-security-jwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper.starter.version}</version>
+            </dependency>
+            <!--  下面定义了子项目在添加对应依赖时的版本号  -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-extension</artifactId>
+                <version>${mybatis.plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis.plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatis.plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus</artifactId>
+                <version>${mybatis.plus.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>

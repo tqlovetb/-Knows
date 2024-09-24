@@ -1,0 +1,35 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: gateway-search
+          uri: lb://search-service
+          predicates:
+            - Path=/v3/**
+        - id: gateway-auth
+          uri: lb://auth-service
+          predicates:
+            - Path=/oauth/**
+        - id: gateway-faq
+          uri: lb://faq-service
+          predicates:
+            - Path=/v2/**
+        - id: gateway-sys
+          uri: lb://sys-service
+          predicates:
+            - Path=/v1/**
+        - id: gateway-resource
+          uri: lb://resource-server
+          predicates:
+            - Path=/image/**
